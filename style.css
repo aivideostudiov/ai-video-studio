@@ -1,92 +1,207 @@
+/* Basic Setup */
 body {
-    font-family: Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     padding: 20px;
-    background-color: #0b0f1a;
-    color: white;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.light-mode {
+    background-color: #f0f2f5;
+    color: #000000;
+}
+
+#studio {
+    width: 100%;
+    max-width: 500px;
     text-align: center;
 }
 
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
+/* Header & Controls */
 header {
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
 }
 
 header h1 {
+    font-size: 1.5rem;
     margin: 0;
-    font-size: 2.5em;
+}
+
+.header-buttons button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.dark-mode .header-buttons button {
+    color: #ffffff;
+}
+
+.light-mode .header-buttons button {
+    color: #000000;
 }
 
 header p {
-    margin: 0;
-    color: #aaa;
-}
-
-.controls {
+    color: #bbbbbb;
     margin-bottom: 20px;
 }
 
-.controls input, .controls select {
-    padding: 10px;
-    margin: 5px;
-    border-radius: 5px;
+.controls {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.controls input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
     border: 1px solid #333;
-    background-color: #1e2a38;
-    color: white;
+    font-size: 1rem;
+}
+
+.dark-mode .controls input {
+    background: #1e1e1e;
+    color: #fff;
+}
+
+.light-mode .controls input {
+    background: #ffffff;
+    color: #000;
+    border: 1px solid #ccc;
 }
 
 .controls button {
-    padding: 10px 20px;
-    margin: 5px;
+    padding: 15px;
     border: none;
-    border-radius: 5px;
-    background-color: #007bff;
-    color: white;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 1rem;
+    background: #007bff;
+    color: #fff;
 }
 
-.controls button:hover {
-    background-color: #0056b3;
-}
-
-#output {
-    margin-top: 20px;
-}
-
-.video-container {
-    position: relative;
-    display: inline-block;
-    margin-top: 20px;
-}
-
-#videoPlayer {
+/* Video Player & Scenes */
+#video-player {
     width: 100%;
-    max-width: 600px;
-    border-radius: 5px;
+    max-width: 340px;
+    margin: 20px auto;
+    aspect-ratio: 9 / 16;
+    background: #000;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid #333;
 }
 
-#captionBox, #hashtags {
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
+.scene {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s ease-in-out;
 }
 
-.support a {
-    color: #007bff;
-    text-decoration: none;
+.caption {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    padding: 20px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    animation: fadeIn 1s ease;
 }
 
-#admin-controls, #adminPanel, #analyticsPanel {
-    margin-top: 20px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-#projects {
-    margin-top: 10px;
+.end-screen {
+    font-size: 1.5rem;
+}
+
+.dark-mode .end-screen { color: #ccc; }
+.light-mode .end-screen { color: #333; }
+
+/* Animated Backgrounds */
+.gradient-motion { background: linear-gradient(45deg, #ff007b, #00c3ff, #ffc700); background-size: 400% 400%; animation: gradient-animation 15s ease infinite; }
+@keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+.wave-motion { background: radial-gradient(circle, #007bff, #121212 70%); animation: wave-animation 10s ease-in-out infinite; }
+@keyframes wave-animation { 0% { transform: scale(1); } 50% { transform: scale(1.5); } 100% { transform: scale(1); } }
+
+.particles { background-color: #1a1a1a; /* Add particle styles if needed */ }
+
+/* Loader */
+#loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Modal */
+.modal { position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; }
+
+.modal-content { padding: 30px; border-radius: 12px; width: 90%; max-width: 400px; position: relative; }
+.dark-mode .modal-content { background: #2a2a2a; }
+.light-mode .modal-content { background: #ffffff; }
+
+.close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; }
+.dark-mode .close-btn { color: #aaa; }
+.light-mode .close-btn { color: #777; }
+
+.setting-group { display: grid; gap: 10px; margin-top: 20px; text-align: left;}
+.setting-group label { font-weight: bold; }
+.setting-group select { width: 100%; padding: 10px; border-radius: 5px; }
+
+.dark-mode .setting-group select {
+    background: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+.light-mode .setting-group select {
+    background: #f0f2f5;
+    color: #000;
+    border: 1px solid #ccc;
 }
